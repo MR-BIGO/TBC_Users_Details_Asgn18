@@ -8,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.navigateUp
 import com.bumptech.glide.Glide
 import com.example.tbc_users_details_davaleba18.data.common.Resource
 import com.example.tbc_users_details_davaleba18.databinding.FragmentDetailsBinding
@@ -45,10 +44,10 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                     when (it) {
                         is Resource.Success -> {
                             with(binding) {
-                                tvEmail.text = it.data.data.email
-                                tvFirstName.text = it.data.data.firstName
-                                tvLastName.text = it.data.data.lastName
-                                Glide.with(requireContext()).load(it.data.data.img).into(ivUserProfile)
+                                tvEmail.text = it.data.email
+                                tvFirstName.text = it.data.firstName
+                                tvLastName.text = it.data.lastName
+                                Glide.with(requireContext()).load(it.data.img).into(ivUserProfile)
                             }
                         }
 

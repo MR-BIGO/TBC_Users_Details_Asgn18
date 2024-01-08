@@ -3,8 +3,8 @@ package com.example.tbc_users_details_davaleba18.presentation.details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_users_details_davaleba18.data.common.Resource
-import com.example.tbc_users_details_davaleba18.domain.model.SingleResponse
-import com.example.tbc_users_details_davaleba18.domain.repository.IGetUserRepository
+import com.example.tbc_users_details_davaleba18.domain.use_case.GetUserUseCase
+import com.example.tbc_users_details_davaleba18.presentation.model.UserItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,14 +13,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsFragmentViewModel @Inject constructor(private val getRepository: IGetUserRepository) : ViewModel() {
+class DetailsFragmentViewModel @Inject constructor(private val getUserUseCase: GetUserUseCase) : ViewModel() {
 
-    private val _itemFlow = MutableStateFlow<Resource<SingleResponse>?>(null)
-    val itemFLow: StateFlow<Resource<SingleResponse>?> = _itemFlow.asStateFlow()
+    private val _itemFlow = MutableStateFlow<Resource<UserItem>?>(null)
+    val itemFLow: StateFlow<Resource<UserItem>?> = _itemFlow.asStateFlow()
 
     fun loadDetails(id: Int){
         viewModelScope.launch {
-            getRepository.getUser(id).collect{
+            getUserUseCase.invoke(id).collect{
                 when(it){
                     is Resource.Success -> _itemFlow.value = Resource.Success(it.data)
                     is Resource.Error -> _itemFlow.value = Resource.Error(it.error)
