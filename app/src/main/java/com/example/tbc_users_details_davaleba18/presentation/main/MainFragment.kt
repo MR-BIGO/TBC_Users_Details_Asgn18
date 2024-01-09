@@ -38,6 +38,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         usersRecyclerAdapter.itemOnClick = { it ->
             navigateToDetails(it)
         }
+
+        binding.btnDelete.setOnClickListener {
+            viewModel.deleteItems(usersRecyclerAdapter.getSelectedItems())
+        }
     }
 
     private fun navigateToDetails(id: Int) {

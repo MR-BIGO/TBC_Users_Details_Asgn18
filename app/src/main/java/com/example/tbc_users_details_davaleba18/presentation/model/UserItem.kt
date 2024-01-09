@@ -6,5 +6,5 @@ data class UserItem(
     val firstName: String,
     val lastName: String,
     val img: String,
-    val isSelected: Boolean
+    var isSelected: Boolean
 )
