@@ -1,5 +1,6 @@
 package com.example.tbc_users_details_davaleba18.presentation.main
 
+import android.util.Log.d
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_users_details_davaleba18.data.common.Resource
@@ -47,14 +48,16 @@ class MainFragmentViewModel @Inject constructor(
 
     fun deleteItems(items: List<Int>) {
         viewModelScope.launch {
-            deleteUsersUseCase.invoke(
-                usersList,
-                items
-            ).collect {
-                _itemFlow.value = it
-                if (it is Resource.Success){
-                    usersList = it.data
+            for (i in items){
+                try {
+                    //This doesn't work, because endpoint isn't supposed to work
+                    deleteUsersUseCase.invoke(i)
+                    //after deleting user/users, retrieving the new list again.
+                    getUsers()
+                }catch (e: Throwable){
+                    d("delete error", e.message!!)
                 }
+
             }
         }
     }

@@ -1,10 +1,13 @@
 package com.example.tbc_users_details_davaleba18.di
 
 import com.example.tbc_users_details_davaleba18.data.common.HandleResponse
+import com.example.tbc_users_details_davaleba18.data.repository.DeleteUserRepositoryImpl
 import com.example.tbc_users_details_davaleba18.data.repository.GetUserRepositoryImpl
 import com.example.tbc_users_details_davaleba18.data.repository.GetUsersRepositoryImpl
+import com.example.tbc_users_details_davaleba18.data.service.IDeleteUserService
 import com.example.tbc_users_details_davaleba18.data.service.IGetUserService
 import com.example.tbc_users_details_davaleba18.data.service.IGetUsersService
+import com.example.tbc_users_details_davaleba18.domain.repository.IDeleteUserRepository
 import com.example.tbc_users_details_davaleba18.domain.repository.IGetUserRepository
 import com.example.tbc_users_details_davaleba18.domain.repository.IGetUsersRepository
 import dagger.Module
@@ -33,6 +36,12 @@ object RepositoryModule {
         handler: HandleResponse
     ): IGetUserRepository {
         return GetUserRepositoryImpl(getService, handler)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteUserRepository(deleteService: IDeleteUserService): IDeleteUserRepository {
+        return DeleteUserRepositoryImpl(deleteService)
     }
 
     @Singleton

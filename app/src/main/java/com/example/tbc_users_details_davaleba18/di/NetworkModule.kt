@@ -1,7 +1,9 @@
 package com.example.tbc_users_details_davaleba18.di
 
+import androidx.navigation.Navigator
 import com.example.tbc_users_details_davaleba18.data.common.Constants.Companion.BASE_URL_ALL
 import com.example.tbc_users_details_davaleba18.data.common.Constants.Companion.BASE_URL_DETAILS
+import com.example.tbc_users_details_davaleba18.data.service.IDeleteUserService
 import com.example.tbc_users_details_davaleba18.data.service.IGetUserService
 import com.example.tbc_users_details_davaleba18.data.service.IGetUsersService
 import com.squareup.moshi.Moshi
@@ -12,6 +14,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -55,5 +58,11 @@ object NetworkModule {
     @Provides
     fun provideUserGetService(@Named("SingleUser") retrofit: Retrofit): IGetUserService {
         return retrofit.create(IGetUserService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteUserService(@Named("SingleUser") retrofit: Retrofit): IDeleteUserService{
+        return retrofit.create(IDeleteUserService::class.java)
     }
 }
